@@ -8,6 +8,13 @@ var bank = {
   },
   withdrawal: function (amount) {
     this.amount -= amount;
+  },
+  formVThree: function (one, two, three) {
+    if (one && two && three) {
+      return true;
+    } else {
+      return false;
+    }
   }
 };
 
@@ -40,26 +47,30 @@ $(document).ready(function() {
 
     firstTime = Object.create(bank);
 
-    $(".setupHide").hide();
+    if (firstTime.formVThree($("#name").val(), parseInt($("#initdeposit").val()), $("#password").val())) {
+      $(".setupHide").hide();
 
-    firstTime.name = $("#name").val();
+      firstTime.name = $("#name").val();
 
-    name = $("#name").val();
+      name = $("#name").val();
 
-    amount = parseInt($("#initdeposit").val());
+      amount = parseInt($("#initdeposit").val());
 
-    firstTime.password = $("#password").val();
+      firstTime.password = $("#password").val();
 
-    firstTime.amount = parseInt($("#initdeposit").val());
+      firstTime.amount = parseInt($("#initdeposit").val());
 
+      firstBank.push(firstTime);
 
-    firstBank.push(firstTime);
+      at = firstBank.length - 1;
 
-    at = firstBank.length - 1;
+      $("#amountMoney").text(firstBank[at].name + " amount: $" + firstBank[at].amount);
 
-    $("#amountMoney").text(firstBank[at].name + " amount: $" + firstBank[at].amount);
-
-    $(".wdHide").show();
+      $(".wdHide").show();
+    } else {
+      firstTime = "";
+      $("#amountMoney").text("need to input value in the make form");
+    }
 
   });
 
@@ -77,7 +88,7 @@ $(document).ready(function() {
         at = i;
         $(".setupHide").hide();
       } else {
-        $("#amountMoney").text("not found");
+        $("#amountMoney").text("Not found or need to input values in the login form");
       }
     }
 
