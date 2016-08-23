@@ -55,13 +55,9 @@ $(document).ready(function() {
 
     firstBank.push(firstTime);
 
-    for (var i = 0; i < firstBank.length; i++) {
-      if (name === firstBank[i].name) {
-        $("#amountMoney").text(firstBank[i].name + " amount: $" + firstBank[i].amount);
-        at = i;
-      }
+    at = firstBank.length - 1;
 
-    }
+    $("#amountMoney").text(firstBank[at].name + " amount: $" + firstBank[at].amount);
 
     $(".wdHide").show();
 
@@ -70,24 +66,18 @@ $(document).ready(function() {
   $("form#login").submit(function(event) {
     event.preventDefault();
 
-    $(".setupHide").hide();
-
-
-
     name = $("#lName").val();
 
     password = $("#lPassword").val();
-
-
-
 
     for (var i = 0; i < firstBank.length; i++) {
       if (firstBank[i].name === name && password === firstBank[i].name) {
         $("#amountMoney").text(firstBank[i].name + " amount: $" + firstBank[i].amount);
         $(".wdHide").show();
         at = i;
+        $(".setupHide").hide();
       } else {
-        $("#amountMoney").text("not found")
+        $("#amountMoney").text("not found");
       }
     }
 
@@ -101,11 +91,11 @@ $(document).ready(function() {
     var deposit = parseInt($("#deposit").val());
     var withdrawal = parseInt($("#withdrawal").val());
 
-    if (deposit !== isNaN) {
+    if (deposit) {
       firstBank[at].deposit(deposit);
     }
 
-    if (withdrawal !== isNaN) {
+    if (withdrawal) {
       firstBank[at].withdrawal(withdrawal);
     }
 
